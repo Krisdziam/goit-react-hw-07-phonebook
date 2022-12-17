@@ -1,38 +1,31 @@
+import Loader from 'components/Loader/Loader';
 import React from 'react';
-
-import { useDispatch, useSelector } from 'react-redux';
-import { removeContacts } from 'redux/contactsSlice';
-import {
-  useFetchContactsQuery,
-
-} from 'redux/contactsApi';
+import { useSelector } from 'react-redux';
+import { useFetchContactsQuery } from 'redux/contactsApi';
+import { getContactFilter } from 'redux/contactsSlice';
 import { ContactList } from './ContactList';
 
- const ContactsPage = () => {
-  const { data, isFetching } = useFetchContactsQuery();
+const ContactsPage = () => {
+  const { data, isLoading } = useFetchContactsQuery();
+  const filterContact = useSelector(getContactFilter);
 
-  // const dispatch = useDispatch();
-  // const contacts = useSelector(
-  //   state => state.contacts.contacts
-  // );
-  // const filterContact = useSelector(
-  //   state => state.contacts.filter
-  // );
+  const filterContacts = () => {
+    return data.filter(contact =>
+      contact.name.toLowerCase().includes(filterContact)
+    );
+  };
 
-  // const onDeleteContact = id => {
-  //   dispatch(removeContacts(id));
-  // };
+  const filteredContacts =
+    filterContact === '' ? data : filterContacts();
 
-  // const filterContacts = () => {
-  //   return contacts.filter(contact =>
-  //     contact.name.toLowerCase().includes(filterContact)
-  //   );
-  // };
-
-  // const filteredContacts =
-  //   filterContact === '' ? contacts : filterContacts();
-
-  return <>{data && <ContactList contacts={data} />}</>;
+  return (
+    <>
+      {isLoading && <Loader />}
+      {filteredContacts && (
+        <ContactList contacts={filteredContacts} />
+      )}
+    </>
+  );
 };
 
-export default ContactsPage
+export default ContactsPage;

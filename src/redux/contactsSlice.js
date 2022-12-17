@@ -1,10 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
-
+import { createSlice } from '@reduxjs/toolkit';
 
 export const contactsSlice = createSlice({
-  name: "contacts",
+  name: 'contacts',
   initialState: {
-    filter: "",
+    filter: '',
   },
   reducers: {
     filter(state, action) {
@@ -15,4 +14,5 @@ export const contactsSlice = createSlice({
 
 export const { filter } = contactsSlice.actions;
 
-export const getContactFilter = (state) => state.contacts.filter;
+export const getContactFilter = state =>
+  state.contacts.filter;

@@ -3,20 +3,22 @@ import styles from './Form.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
 import { addContact } from 'redux/contactsSlice';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAddContactMutation } from 'redux/contactsApi';
 import { useFetchContactsQuery } from 'redux/contactsApi';
 
 export default function Form() {
-  const [addContact, {isLoading}] = useAddContactMutation();
-  const { data:contacts, isFetching } = useFetchContactsQuery();
+  const [addContact, { isLoading }] =
+    useAddContactMutation();
+  const { data: contacts, isFetching } =
+    useFetchContactsQuery();
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [id, setId] = useState('');
-
-
 
   const handleInputChange = e => {
     const { name, value } = e.currentTarget;
@@ -39,17 +41,19 @@ export default function Form() {
     const isDuplicate = contacts.find(
       contact => contact.name === name
     );
-    if(    isDuplicate === undefined){
-      addContact({ name, number, id }) 
-      toast.success(`Contact added`, {
+    if (isDuplicate === undefined) {
+      addContact({ name, number, id });
+      toast.success(`Contact ${name} has been added`, {
         position: toast.POSITION.TOP_CENTER,
-        autoClose: 1000,    });
-    } else {  toast.error(`${name} already exist`, {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 1000,
-    });}
-  
-     
+        autoClose: 1000,
+      });
+    } else {
+      toast.error(`${name} already exist`, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1000,
+      });
+    }
+
     reset();
   };
 
@@ -67,7 +71,7 @@ export default function Form() {
         onSubmit={handleSubmitForm}
       >
         <div className={styles.formContainer}>
-          <div>
+          <div className={styles.inputPadding}>
             <label className={styles.label}>Name:</label>
             <input
               className={styles.input}
@@ -76,25 +80,28 @@ export default function Form() {
               type="text"
               name="name"
               value={name}
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Name may contain only letters, apostrophe, dash and spaces. 
-              For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+              pattern="^[A-Za-zА-Яа-яЁёІіЇїЄє]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
               required
             />
           </div>
-          <div>
+          <div className={styles.phoneContainer}>
             <label className={styles.label}>Number:</label>
-            <input
-              className={styles.input}
-              placeholder="Enter number"
-              onChange={handleInputChange}
+            <PhoneInput
+              className={styles.inputPhone}
+              defaultCountry="UA"
+              onChange={number => {
+                setNumber(number);
+              }}
+              region="Europe"
+              title="Number"
               type="tel"
               name="number"
               value={number}
-              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-              title="Phone number must be digits and can contain spaces, dashes, 
-              parentheses and can start with +"
-              required
+              placeholder="Enter phone number"
+              autoComplete="off"
+              international
+            
+              maxLength="16"
             />
           </div>
         </div>

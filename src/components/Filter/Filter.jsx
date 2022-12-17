@@ -21,7 +21,7 @@ const Filter = () => {
     dispatch(filter(e.currentTarget.value.toLocaleLowerCase().trim()));
   };
   return (
-    <>
+    <div className={styles.filterContainer}>
       <label className={styles.label}>
         Find contacts by name: <br />
         <input
@@ -35,7 +35,7 @@ const Filter = () => {
           required
         />
       </label>
-    </>
+    </div>
   );
 };
 

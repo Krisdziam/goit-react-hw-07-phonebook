@@ -12,9 +12,10 @@ export function App() {
     <div className={styles.container}>
       <h1 className={styles.title}>Phonebook</h1>
       <Form />
+      <Filter />
       <h2>Contacts:</h2>
       <ContactsList />
-      <Filter />
+
       <ToastContainer />
     </div>
   );

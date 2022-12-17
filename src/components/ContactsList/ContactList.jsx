@@ -1,10 +1,19 @@
 import { useDeleteContactMutation } from 'redux/contactsApi';
 import styles from './ContactsList.module.css';
+import { useFetchContactsQuery } from 'redux/contactsApi';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
 
 export const ContactList = ({ contacts }) => {
   const [deleteContact, { isLoading }] =
     useDeleteContactMutation();
-    
+  const deletefsaf = (id, name) => {
+    deleteContact(id, name);
+    toast.success(`Contact ${name} has been deleted`, {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 1000,
+    });
+  };
   return (
     <div className={styles.containerList}>
       <ul className={styles.list}>
@@ -16,7 +25,7 @@ export const ContactList = ({ contacts }) => {
               <button
                 className={styles.removeBtn}
                 disabled={isLoading}
-                onClick={() => deleteContact(id)}
+                onClick={() => deletefsaf(id, name)}
               >
                 X
               </button>

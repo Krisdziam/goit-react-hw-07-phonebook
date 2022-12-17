@@ -3,19 +3,20 @@ import styles from './Form.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
 import { addContact } from 'redux/contactsSlice';
-
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAddContactMutation } from 'redux/contactsSliceNew';
+import { useFetchContactsQuery } from 'redux/contactsSliceNew';
 
 export default function Form() {
+  const [addContact, {isLoading}] = useAddContactMutation();
+  const { data:contacts, isFetching } = useFetchContactsQuery();
+
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [id, setId] = useState('');
 
-  const contacts = useSelector(
-    state => state.contacts.contacts
-  );
-  const dispatch = useDispatch();
+
 
   const handleInputChange = e => {
     const { name, value } = e.currentTarget;
@@ -39,12 +40,12 @@ export default function Form() {
       contact => contact.name === name
     );
     isDuplicate === undefined
-      ? dispatch(addContact({ name, number, id }))
+      ? addContact({ name, number, id }) 
       : toast.error(`${name} already exist`, {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 1000,
         });
-
+     
     reset();
   };
 

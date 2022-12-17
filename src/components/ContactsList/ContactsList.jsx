@@ -7,7 +7,7 @@ import { ContactPage } from './ContactPage';
 
 const ContactsList = () => {
   const { data, isFetching } = useFetchContactsQuery();
-  console.log('data:', data);
+
   // const dispatch = useDispatch();
   // const contacts = useSelector(
   //   state => state.contacts.contacts

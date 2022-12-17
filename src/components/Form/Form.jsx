@@ -5,8 +5,8 @@ import { nanoid } from 'nanoid';
 import { addContact } from 'redux/contactsSlice';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useAddContactMutation } from 'redux/contactsSliceNew';
-import { useFetchContactsQuery } from 'redux/contactsSliceNew';
+import { useAddContactMutation } from 'redux/contactsApi';
+import { useFetchContactsQuery } from 'redux/contactsApi';
 
 export default function Form() {
   const [addContact, {isLoading}] = useAddContactMutation();
@@ -39,12 +39,16 @@ export default function Form() {
     const isDuplicate = contacts.find(
       contact => contact.name === name
     );
-    isDuplicate === undefined
-      ? addContact({ name, number, id }) 
-      : toast.error(`${name} already exist`, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 1000,
-        });
+    if(    isDuplicate === undefined){
+      addContact({ name, number, id }) 
+      toast.success(`Contact added`, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1000,    });
+    } else {  toast.error(`${name} already exist`, {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 1000,
+    });}
+  
      
     reset();
   };

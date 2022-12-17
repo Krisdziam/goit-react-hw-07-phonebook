@@ -1,5 +1,5 @@
 
-import ContactsList from './ContactsList/ContactsList';
+import ContactsList from './ContactsList/ContactsPage';
 import Form from './Form/Form';
 import Filter from './Filter/Filter';
 import { ToastContainer } from 'react-toastify';

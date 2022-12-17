@@ -10,7 +10,7 @@ import { useFetchContactsQuery } from 'redux/contactsApi';
 import Filter from 'components/Filter/Filter';
 
 export default function Form() {
-  const [addContact, { isLoading }] =
+  const [addContact] =
     useAddContactMutation();
   const { data: contacts } = useFetchContactsQuery();
 
@@ -108,8 +108,7 @@ export default function Form() {
       </form>
 
       {contacts !== undefined &&
-        contacts.length > 0 &&
-        !isLoading && <Filter />}
+        contacts.length > 0  && <Filter />}
     </>
   );
 }

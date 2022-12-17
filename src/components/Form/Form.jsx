@@ -30,7 +30,6 @@ export default function Form() {
       default:
         return;
     }
-
     setId(nanoid());
   };
 

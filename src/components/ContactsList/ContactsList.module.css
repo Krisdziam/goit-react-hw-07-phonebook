@@ -5,10 +5,10 @@
 
   font-size: 14px;
   font-weight: bold;
+
 }
 .containerList {
   width: 600px;
-
   justify-content: flex-end;
   margin: 0 auto;
 }
@@ -22,7 +22,9 @@
   cursor: pointer;
 }
 .textContainer {
+  
   background-color: white;
+
   display: flex;
   width: 300px;
   border: 2px solid black;

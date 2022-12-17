@@ -1,20 +1,18 @@
 import { useState } from 'react';
 import styles from './Form.module.css';
-import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
-import { addContact } from 'redux/contactsSlice';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAddContactMutation } from 'redux/contactsApi';
 import { useFetchContactsQuery } from 'redux/contactsApi';
+import Filter from 'components/Filter/Filter';
 
 export default function Form() {
   const [addContact, { isLoading }] =
     useAddContactMutation();
-  const { data: contacts, isFetching } =
-    useFetchContactsQuery();
+  const { data: contacts } = useFetchContactsQuery();
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
@@ -109,9 +107,9 @@ export default function Form() {
         </button>
       </form>
 
-      {contacts !== undefined && contacts.length > 0 && (
-        <Filter />
-      )}
+      {contacts !== undefined &&
+        contacts.length > 0 &&
+        !isLoading && <Filter />}
     </>
   );
 }

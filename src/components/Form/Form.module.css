@@ -1,16 +1,10 @@
 .form {
   display: flex;
   justify-content: center;
-<<<<<<< HEAD
-  align-items: center; 
-=======
   align-items: center;
-
->>>>>>> parent of 0d39273 (full ready)
 }
 
 .addBtn {
-
   width: 100px;
   border-radius: 100px;
   font-size: 14px;
@@ -23,33 +17,26 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-right: 10px;
 }
 
-.phoneContainer{
+.phoneContainer {
   display: flex;
-<<<<<<< HEAD
- 
-=======
-
->>>>>>> parent of 0d39273 (full ready)
 }
 
 .label {
-
   text-align: right;
   margin-right: 10px;
   font-size: 20px;
   font-weight: bold;
   width: 100px;
   display: inline-block;
-
 }
 .input {
-
+  background-color: white;
   width: 200px;
-
+  border-radius: 8px;
+  border: 2px solid black;
 }
-.inputPadding{
+.inputPadding {
   padding-bottom: 5px;
 }

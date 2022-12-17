@@ -109,7 +109,7 @@ export default function Form() {
 
       {contacts !== undefined &&
         contacts.length > 0 &&
-       <Filter />}
+        !isLoading && <Filter />}
     </>
   );
 }

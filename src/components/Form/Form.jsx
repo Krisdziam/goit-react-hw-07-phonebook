@@ -107,9 +107,9 @@ export default function Form() {
         </button>
       </form>
 
-      {contacts !== undefined &&
-        contacts.length > 0 &&
-      <Filter />}
+      {contacts !== undefined && contacts.length > 0 && (
+        <Filter />
+      )}
     </>
   );
 }
